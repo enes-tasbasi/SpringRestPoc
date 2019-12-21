@@ -1,5 +1,6 @@
-package com.playground.SpringRestPoc.repository;
+package com.playground.SpringRestPoc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "employee")
 public class Employee implements Serializable {
-@   Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
@@ -20,6 +21,11 @@ public class Employee implements Serializable {
 
     @Column(name = "lastname")
     private String lastName;
+
+    @ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+    @JoinColumn(name = "fk_company", nullable = false)
+    @JsonIgnore
+    private Company company;
 
     public Employee() {}
 

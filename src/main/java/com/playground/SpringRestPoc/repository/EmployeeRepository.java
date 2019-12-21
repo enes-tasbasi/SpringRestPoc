@@ -1,5 +1,6 @@
 package com.playground.SpringRestPoc.repository;
 
+import com.playground.SpringRestPoc.model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
