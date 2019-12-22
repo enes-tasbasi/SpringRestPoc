@@ -2,6 +2,8 @@ package com.playground.SpringRestPoc.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -22,7 +24,7 @@ public class Employee implements Serializable {
     @Column(name = "lastname")
     private String lastName;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.DETACH)
     @JoinColumn(name = "fk_company", nullable = false)
     @JsonIgnore
     private Company company;

@@ -69,19 +69,13 @@ public class EmployeeController {
     @GetMapping("")
     @ResponseBody
     public List<Employee> find(@RequestParam(required = false) Long id, @RequestParam(required = false) String firstName, @RequestParam(required = false) String lastName) {
-        System.out.println(id + " " + firstName + " " + lastName);
-        List<Employee> employees = employeeRepository.findAllByFirstNameOrLastNameOrId(firstName, lastName, id);
-        for(Employee employee : employees) {
-            System.out.println(employee.getFirstName() + " " + employee.getLastName());
-        }
         return employeeRepository.findAllByFirstNameOrLastNameOrId(firstName, lastName, id);
     }
 
     @PutMapping("/{id}")
     @ResponseBody
-    public String updateById(@PathVariable Long id, @RequestBody Employee updatedEmployee) throws IdNotFoundException {
+    public String updateById(@PathVariable Long id, @RequestBody Employee updatedEmployee) {
         Optional<Employee> employee = employeeRepository.findById(id);
-        System.out.println(employee.isPresent());
         if(employee.isPresent()) {
             Employee tempEmployee = employee.get();
             if(!tempEmployee.getFirstName().equals(updatedEmployee.getFirstName()) && updatedEmployee.getFirstName() != null) {
@@ -111,12 +105,5 @@ public class EmployeeController {
         List<Employee> employees = employeeRepository.findAllByFirstNameOrLastNameOrId(firstName, lastName, id);
         employeeRepository.deleteAllByFirstNameOrLastNameOrId(firstName, lastName, id);
         return "Deleted " + employees.size() + " employees";
-    }
-
-}
-
-class IdNotFoundException extends Exception {
-    public IdNotFoundException(String errorMessage) {
-        super(errorMessage);
     }
 }
